@@ -1,0 +1,12 @@
+order: 4
+period: "Jan 2025 - Fev 2025"
+title: "Freelancer"
+company: "Projeto de digitalização de cupons fiscais"
+description: "Desenvolvi um app mobile e um painel web para escanear cupons fiscais e visualizar comprovantes digitalizados. A solução facilitou o acompanhamento financeiro gerencial e a geração de relatórios mensais para a matriz."
+technologies:
+  - FastAPI
+  - Next.js
+  - React Native
+  - Supabase
+  - PostgreSQL
+  - Docker

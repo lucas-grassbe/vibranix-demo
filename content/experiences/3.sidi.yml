@@ -1,0 +1,10 @@
+order: 3
+period: "Jul 2023 - Dez 2024"
+title: "Estagiário em Desenvolvimento de Software (NLP)"
+company: "SiDi / Samsung"
+description: "Contribuí com rotinas de NLP aplicadas ao ecossistema Bixby, apoiando pipelines de dados, validação de qualidade e organização de conjuntos de treinamento para modelos de linguagem."
+technologies:
+  - Python
+  - NLP
+  - Dataset Curation
+  - Prompt/Data Rules

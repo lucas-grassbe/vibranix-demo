@@ -1,0 +1,12 @@
+order: 1
+period: "Ago 2025 - Presente"
+title: "Desenvolvedor de Software"
+company: "SASI e MDC"
+description: "Atuo no desenvolvimento backend com foco na construção de APIs com NestJS e Prisma. Trabalho com modelagem de bancos relacionais, endpoints REST e integrações para automação de comunicação em escala."
+technologies:
+  - NestJS
+  - Prisma
+  - TypeScript
+  - PostgreSQL
+  - REST APIs
+  - RabbitMQ

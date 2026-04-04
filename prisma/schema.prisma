@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  passwordHash String
+  name         String
+  role         Role   @default(USER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  refreshTokens RefreshToken[]
+  posts         Post[]
+  comments      Comment[]
+}
+
+model RefreshToken {
+  id        Int    @id @default(autoincrement())
+  tokenHash String @unique
+  userId    Int
+
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Post {
+  id       Int     @id @default(autoincrement())
+  content  String
+  edited   Boolean @default(false)
+  authorId Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+
+  comments Comment[]
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+  @@index([createdAt, id])
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  content  String
+  authorId Int
+  postId   Int
+
+  author User @relation(fields: [authorId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
+
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  @@index([postId])
+}
+
+model Education {
+  id          Int       @id @default(autoincrement())
+  degree      String
+  institution String
+  startDate   DateTime
+  endDate     DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+}
+
+model Experience {
+  id          Int       @id @default(autoincrement())
+  title       String
+  company     String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+
+  technologies Technology[] @relation("ExperienceTechnologies")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  deletedAt DateTime?
+}
+
+model Technology {
+  id          Int          @id @default(autoincrement())
+  name        String
+
+  experiences Experience[] @relation("ExperienceTechnologies")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  deletedAt DateTime?
+}

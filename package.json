@@ -1,0 +1,45 @@
+{
+  "name": "demo",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed/seed.ts"
+  },
+  "dependencies": {
+    "@nuxt/content": "^3.12.0",
+    "@nuxt/icon": "2.2.1",
+    "@nuxt/ui": "^4.6.0",
+    "@pinia/nuxt": "0.11.3",
+    "@prisma/adapter-pg": "^7.5.0",
+    "@prisma/client": "^7.5.0",
+    "@sidebase/nuxt-auth": "1.2.0",
+    "@vueuse/nuxt": "14.2.1",
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.8.0",
+    "jose": "^6.2.2",
+    "nuxt": "^4.4.2",
+    "nuxt-studio": "1.5.1",
+    "pg": "^8.20.0",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "tailwindcss": "^4.2.2",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vue": "^3.5.30",
+    "vue-router": "^5.0.3"
+  },
+  "devDependencies": {
+    "@nuxtjs/mcp-toolkit": "^0.12.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/pg": "^8.20.0",
+    "dotenv": "^17.3.1",
+    "prisma": "^7.5.0",
+    "tsx": "^4.21.0",
+    "zod": "^4.3.6"
+  }
+}

@@ -1,0 +1,11 @@
+order: 2
+period: "Jan 2024 - Ago 2025"
+title: "Desenvolvedor de Software (NLP)"
+company: "SiDi / Samsung"
+description: "Fiz parte da equipe da Bixby, assistente virtual da Samsung. Implementei melhorias de produto, participei da criação e tradução de datasets e desenvolvi scripts internos para otimizar processos de treinamento de modelos."
+technologies:
+  - Python
+  - NLP
+  - Machine Learning
+  - Data Translation
+  - Automation Scripts
