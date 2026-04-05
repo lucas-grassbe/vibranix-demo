@@ -1,6 +1,10 @@
-import type { Education } from '../../app/generated/prisma/client'
-
-export type EducationDto = Education
+export type EducationDto = {
+  id: number
+  degree: string
+  institution: string
+  startDate: Date
+  endDate: Date | null
+}
 
 export type CreateEducationDto = {
   degree: string

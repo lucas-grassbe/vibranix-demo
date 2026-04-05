@@ -10,7 +10,6 @@ const {
 const showForm = ref(false)
 const editingId = ref<number | null>(null)
 const deleteId = ref<number | null>(null)
-const newTech = ref('')
 
 const form = reactive({
   title: '',
@@ -60,11 +59,9 @@ const handleSubmit = async () => {
   showForm.value = false
 }
 
-const handleAddTech = async () => {
-  if (!newTech.value.trim()) return
-  const tech = await submitCreateTechnology(newTech.value.trim())
+const handleCreateTech = async (item: string) => {
+  const tech = await submitCreateTechnology(item)
   form.technologyIds = [...form.technologyIds, tech.id]
-  newTech.value = ''
 }
 
 const techOptions = computed(() =>
@@ -146,14 +143,12 @@ onMounted(async () => {
             value-key="value"
             label-key="label"
             multiple
+            create-item
             placeholder="Selecione tecnologias"
             class="w-full"
+            @create="handleCreateTech"
           />
         </UFormField>
-        <div class="flex gap-2">
-          <UInput v-model="newTech" placeholder="Nova tecnologia..." class="flex-1" @keydown.enter.prevent="handleAddTech" />
-          <UButton icon="i-lucide-plus" variant="outline" :disabled="!newTech.trim()" @click="handleAddTech" />
-        </div>
         <div class="flex justify-end gap-2 pt-2">
           <UButton variant="ghost" label="Cancelar" @click="showForm = false" />
           <UButton label="Salvar" :disabled="!form.title || !form.company || !form.startDate" @click="handleSubmit" />

@@ -35,7 +35,7 @@ export default defineNuxtConfig({
         headerName: 'Authorization',
         maxAgeInSeconds: 1800, // 30 minutes
         sameSiteAttribute: 'lax',
-        secureCookieAttribute: false,
+        secureCookieAttribute: true,
         httpOnlyCookieAttribute: false,
       },
       refresh: {
@@ -49,7 +49,7 @@ export default defineNuxtConfig({
           cookieName: 'demo-auth.refreshToken',
           maxAgeInSeconds: 2592000, // 30 days
           sameSiteAttribute: 'lax',
-          secureCookieAttribute: false,
+          secureCookieAttribute: true,
           httpOnlyCookieAttribute: false,
         }
       }

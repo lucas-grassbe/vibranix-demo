@@ -1,12 +1,18 @@
 export const getTechnologies = async () => {
-  return await prisma.technology.findMany({ where: { deletedAt: null }, orderBy: { name: 'asc' } })
+  return await prisma.technology.findMany({
+    where: { deletedAt: null },
+    orderBy: { name: 'asc' },
+    select: { id: true, name: true },
+  })
 }
 
 export const createTechnology = async (createTechnologyDto: CreateTechnologyDto) => {
-
   await checkIfTechnologyNameIsUnique(createTechnologyDto.name)
 
-  return await prisma.technology.create({ data: createTechnologyDto })
+  return await prisma.technology.create({
+    data: createTechnologyDto,
+    select: { id: true, name: true },
+  })
 }
 
 export const updateTechnology = async (id: number, updateTechnologyDto: UpdateTechnologyDto) => {
@@ -21,6 +27,7 @@ export const updateTechnology = async (id: number, updateTechnologyDto: UpdateTe
   return await prisma.technology.update({
     where: { id },
     data: updateTechnologyDto,
+    select: { id: true, name: true },
   })
 }
 

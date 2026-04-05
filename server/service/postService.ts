@@ -1,19 +1,34 @@
 export const createPost = async (data: { content: string; authorId: number }) => {
   return await prisma.post.create({
     data,
-    include: { author: { select: { id: true, name: true } } },
+    select: {
+      id: true,
+      content: true,
+      edited: true,
+      createdAt: true,
+      author: { select: { id: true, name: true } },
+    },
   })
 }
 
 export const getPostById = async (id: number) => {
   const post = await prisma.post.findFirst({
     where: { id, deletedAt: null },
-    include: {
+    select: {
+      id: true,
+      content: true,
+      edited: true,
+      createdAt: true,
       author: { select: { id: true, name: true } },
       comments: {
         where: { deletedAt: null },
         orderBy: { createdAt: 'asc' },
-        include: { author: { select: { id: true, name: true } } },
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          author: { select: { id: true, name: true } },
+        },
       },
     },
   })
@@ -29,7 +44,13 @@ export const getPosts = async () => {
   return await prisma.post.findMany({
     where: { deletedAt: null },
     orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-    include: { author: { select: { id: true, name: true } } },
+    select: {
+      id: true,
+      content: true,
+      edited: true,
+      createdAt: true,
+      author: { select: { id: true, name: true } },
+    },
   })
 }
 

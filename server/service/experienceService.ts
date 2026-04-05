@@ -4,7 +4,13 @@ export const getExperiences = async () => {
   return await prisma.experience.findMany({
     where: { deletedAt: null },
     orderBy: { startDate: 'desc' },
-    include: { 
+    select: {
+      id: true,
+      title: true,
+      company: true,
+      description: true,
+      startDate: true,
+      endDate: true,
       technologies: {
         where: { deletedAt: null },
         select: { id: true, name: true },
@@ -27,7 +33,13 @@ export const createExperience = async (createExperienceDto: CreateExperienceDto)
         ? { connect: technologyIds.map((id) => ({ id })) }
         : undefined,
     },
-    include: { 
+    select: {
+      id: true,
+      title: true,
+      company: true,
+      description: true,
+      startDate: true,
+      endDate: true,
       technologies: {
         where: { deletedAt: null },
         select: { id: true, name: true },
@@ -65,7 +77,13 @@ export const updateExperience = async (id: number, updateExperienceDto: UpdateEx
           ? { set: technologyIds.map((techId) => ({ id: techId })) }
           : undefined,
     },
-    include: {
+    select: {
+      id: true,
+      title: true,
+      company: true,
+      description: true,
+      startDate: true,
+      endDate: true,
       technologies: {
         where: { deletedAt: null },
         select: { id: true, name: true },
@@ -86,12 +104,6 @@ export const deleteExperience = async (id: number) => {
     data: {
       deletedAt: new Date(),
       technologies: { set: [] },
-    },
-    include: { 
-      technologies: {
-        where: { deletedAt: null },
-        select: { id: true, name: true },
-      },
     },
   })
 }

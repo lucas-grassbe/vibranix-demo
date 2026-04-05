@@ -1,9 +1,15 @@
 export const createEducation = async (createEducationDto: CreateEducationDto) => {
-  return await prisma.education.create({ data: createEducationDto })
+  return await prisma.education.create({
+    data: createEducationDto,
+    select: { id: true, degree: true, institution: true, startDate: true, endDate: true },
+  })
 }
 
 export const getEducations = async () => {
-  return await prisma.education.findMany({ where: { deletedAt: null } })
+  return await prisma.education.findMany({
+    where: { deletedAt: null },
+    select: { id: true, degree: true, institution: true, startDate: true, endDate: true },
+  })
 }
 
 export const updateEducation = async (id: number, updateEducationDto: UpdateEducationDto) => {
@@ -20,7 +26,11 @@ export const updateEducation = async (id: number, updateEducationDto: UpdateEduc
     throw createError({ statusCode: 400, message: 'Start date cannot be after end date' })
   }
 
-  return await prisma.education.update({ where: { id }, data: updateEducationDto })
+  return await prisma.education.update({
+    where: { id },
+    data: updateEducationDto,
+    select: { id: true, degree: true, institution: true, startDate: true, endDate: true },
+  })
 }
 
 export const deleteEducation = async (id: number) => {

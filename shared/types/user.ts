@@ -1,6 +1,9 @@
-import type { User } from '../../app/generated/prisma/client'
-
-export type { User as UserDto }
+export type UserDto = {
+  id: number
+  name: string
+  email: string
+  role: string
+}
 
 export type CreateUserDto = {
   name: string;

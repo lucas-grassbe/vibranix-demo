@@ -1,7 +1,12 @@
 export const createComment = async (data: { content: string; authorId: number; postId: number }) => {
   return await prisma.comment.create({
     data,
-    include: { author: { select: { id: true, name: true } } },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      author: { select: { id: true, name: true } },
+    },
   })
 }
 
@@ -23,7 +28,12 @@ export const deleteComment = async (id: number, userId: number) => {
 export const getCommentsByPostId = async (postId: number) => {
   return await prisma.comment.findMany({
     where: { postId },
-    include: { author: { select: { id: true, name: true } } },
     orderBy: { createdAt: 'asc' },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+      author: { select: { id: true, name: true } },
+    },
   })
 }

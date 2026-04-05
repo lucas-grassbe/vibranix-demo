@@ -1,7 +1,12 @@
-import type { Experience } from '../../app/generated/prisma/client'
 import type { TechnologyDto } from './technology'
 
-export type ExperienceDto = Experience & {
+export type ExperienceDto = {
+  id: number
+  title: string
+  company: string
+  description: string
+  startDate: Date
+  endDate: Date | null
   technologies: TechnologyDto[]
 }
 
