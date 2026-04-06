@@ -1,6 +1,6 @@
 import { isPasswordValid } from "../utils/password";
 
-export const getUserByEmail = async (email: string): Promise<UserDto> => {
+export const getUserByEmail = async (email: string) => {
   const user = await prisma.user.findUnique({
     where: { email: email.toLowerCase() }
   });
@@ -12,7 +12,7 @@ export const getUserByEmail = async (email: string): Promise<UserDto> => {
   return user
 };
 
-export const createUser = async (createUserDto: CreateUserDto): Promise<UserDto> => {
+export const createUser = async (createUserDto: CreateUserDto) => {
   const userExists = await prisma.user.findFirst({
     where: { email: createUserDto.email.toLowerCase() }
   })

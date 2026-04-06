@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(() => {
   if (status.value !== 'authenticated') return
 
   if (session.value?.role === 'ADMIN') {
-    return navigateTo('/admin/education')
+    return navigateTo('/admin/')
   }
 
   return navigateTo('/feed')

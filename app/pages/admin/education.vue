@@ -1,51 +1,10 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
-const { education, loading, getEducation, submitCreate, submitUpdate, submitDelete } = useEducation()
-
-const showForm = ref(false)
-const editingId = ref<number | null>(null)
-const deleteId = ref<number | null>(null)
-
-const form = reactive<CreateEducationDto>({
-  degree: '',
-  institution: '',
-  startDate: '',
-  endDate: '',
-})
-
-const openCreate = () => {
-  editingId.value = null
-  form.degree = ''
-  form.institution = ''
-  form.startDate = ''
-  form.endDate = ''
-  showForm.value = true
-}
-
-const openEdit = (item: EducationDto) => {
-  editingId.value = item.id
-  form.degree = item.degree
-  form.institution = item.institution
-  form.startDate = item.startDate ? new Date(item.startDate).toISOString().slice(0, 10) : ''
-  form.endDate = item.endDate ? new Date(item.endDate).toISOString().slice(0, 10) : ''
-  showForm.value = true
-}
-
-const handleSubmit = async () => {
-  const body = {
-    degree: form.degree,
-    institution: form.institution,
-    startDate: new Date(form.startDate).toISOString(),
-    endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined,
-  }
-  if (editingId.value) {
-    await submitUpdate(editingId.value, body)
-  } else {
-    await submitCreate(body)
-  }
-  showForm.value = false
-}
+const {
+  education, loading, form, showForm, editingId, deleteId,
+  getEducation, openForm, handleSubmit, submitDelete,
+} = useEducation()
 
 onMounted(() => {
   getEducation()
@@ -56,7 +15,7 @@ onMounted(() => {
   <div class="max-w-3xl mx-auto py-8 px-4">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold">Formação</h1>
-      <UButton icon="i-lucide-plus" label="Adicionar" @click="openCreate" />
+      <UButton icon="i-lucide-plus" label="Adicionar" @click="openForm()" />
     </div>
 
     <div v-if="loading" class="flex flex-col gap-4">
@@ -78,7 +37,7 @@ onMounted(() => {
             </p>
           </div>
           <div class="flex gap-2">
-            <UButton icon="i-lucide-pencil" variant="ghost" size="xs" @click="openEdit(item)" />
+            <UButton icon="i-lucide-pencil" variant="ghost" size="xs" @click="openForm(item)" />
             <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="xs" @click="deleteId = item.id" />
           </div>
         </div>
@@ -114,7 +73,7 @@ onMounted(() => {
     :open="!!deleteId"
     title="Remover formação"
     description="Tem certeza que deseja remover esta formação?"
-    @confirm="submitDelete(deleteId!); deleteId = null"
+    @confirm="submitDelete"
     @cancel="deleteId = null"
   />
 </template>

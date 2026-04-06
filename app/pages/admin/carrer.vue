@@ -2,71 +2,9 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const {
-  experience, technologies, loading,
-  getExperience, getTechnologies,
-  submitCreate, submitUpdate, submitDelete, submitCreateTechnology,
+  experience, techOptions, loading, form, showForm, editingId, deleteId,
+  getExperience, getTechnologies, openForm, handleSubmit, submitDelete, submitCreateTechnology,
 } = useExperience()
-
-const showForm = ref(false)
-const editingId = ref<number | null>(null)
-const deleteId = ref<number | null>(null)
-
-const form = reactive({
-  title: '',
-  company: '',
-  description: '',
-  startDate: '',
-  endDate: '',
-  technologyIds: [] as number[],
-})
-
-const openCreate = () => {
-  editingId.value = null
-  form.title = ''
-  form.company = ''
-  form.description = ''
-  form.startDate = ''
-  form.endDate = ''
-  form.technologyIds = []
-  showForm.value = true
-}
-
-const openEdit = (item: ExperienceDto) => {
-  editingId.value = item.id
-  form.title = item.title
-  form.company = item.company
-  form.description = item.description
-  form.startDate = item.startDate ? new Date(item.startDate).toISOString().slice(0, 10) : ''
-  form.endDate = item.endDate ? new Date(item.endDate).toISOString().slice(0, 10) : ''
-  form.technologyIds = item.technologies.map(t => t.id)
-  showForm.value = true
-}
-
-const handleSubmit = async () => {
-  const body = {
-    title: form.title,
-    company: form.company,
-    description: form.description,
-    startDate: new Date(form.startDate).toISOString(),
-    endDate: form.endDate ? new Date(form.endDate).toISOString() : undefined,
-    technologyIds: form.technologyIds,
-  }
-  if (editingId.value) {
-    await submitUpdate(editingId.value, body)
-  } else {
-    await submitCreate(body)
-  }
-  showForm.value = false
-}
-
-const handleCreateTech = async (item: string) => {
-  const tech = await submitCreateTechnology(item)
-  form.technologyIds = [...form.technologyIds, tech.id]
-}
-
-const techOptions = computed(() =>
-  technologies.value.map(t => ({ label: t.name, value: t.id }))
-)
 
 onMounted(async () => {
   await getExperience()
@@ -78,7 +16,7 @@ onMounted(async () => {
   <div class="max-w-3xl mx-auto py-8 px-4">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold">Carreira</h1>
-      <UButton icon="i-lucide-plus" label="Adicionar" @click="openCreate" />
+      <UButton icon="i-lucide-plus" label="Adicionar" @click="openForm()" />
     </div>
 
     <div v-if="loading" class="flex flex-col gap-4">
@@ -107,7 +45,7 @@ onMounted(async () => {
             </div>
           </div>
           <div class="flex gap-2 ml-4">
-            <UButton icon="i-lucide-pencil" variant="ghost" size="xs" @click="openEdit(item)" />
+            <UButton icon="i-lucide-pencil" variant="ghost" size="xs" @click="openForm(item)" />
             <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="xs" @click="deleteId = item.id" />
           </div>
         </div>
@@ -146,7 +84,7 @@ onMounted(async () => {
             create-item
             placeholder="Selecione tecnologias"
             class="w-full"
-            @create="handleCreateTech"
+            @create="submitCreateTechnology"
           />
         </UFormField>
         <div class="flex justify-end gap-2 pt-2">
@@ -161,7 +99,7 @@ onMounted(async () => {
     :open="!!deleteId"
     title="Remover experiência"
     description="Tem certeza que deseja remover esta experiência?"
-    @confirm="submitDelete(deleteId!); deleteId = null"
+    @confirm="submitDelete"
     @cancel="deleteId = null"
   />
 </template>

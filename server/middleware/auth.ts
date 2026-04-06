@@ -1,6 +1,6 @@
 const publicPaths = [
-  '/api/education', 
-  '/api/experience'
+  '/api/education',
+  '/api/experience',
 ]
 
 const adminPaths = [
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   if (
     !event.path.startsWith('/api/') ||
     event.path.startsWith('/api/auth/') ||
-    (event.method === 'GET' && publicPaths.includes(event.path))
+    (event.method === 'GET' && publicPaths.some(p => event.path.startsWith(p)))
   ) return
 
   const authHeader = getRequestHeader(event, 'Authorization')
