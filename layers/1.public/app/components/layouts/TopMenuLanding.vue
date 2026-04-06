@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { personalInfo } from '~/data/personalInfo'
+import { personalInfo } from '../../data/personalInfo'
 
 const route = useRoute()
 
