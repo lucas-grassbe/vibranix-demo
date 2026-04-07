@@ -1,4 +1,5 @@
-import { isPasswordValid } from "../utils/password";
+import { isPasswordValid } from '../../../../shared/utils/password';
+import { hashPassword } from '../service/hashService';
 
 export const getUserByEmail = async (email: string) => {
   const user = await prisma.user.findUnique({

@@ -3,6 +3,8 @@ const { education, loading, getEducation } = useEducation()
 
 loading.value = true
 
+loading.value = true
+
 onMounted(() => {
   getEducation()
 })

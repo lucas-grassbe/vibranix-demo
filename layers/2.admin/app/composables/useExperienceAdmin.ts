@@ -1,10 +1,10 @@
+import { fetchExperience } from '../../../1.public/app/service/experienceService'
 import {
   createExperience,
   updateExperience,
   deleteExperience,
-} from '../../../../server/service/experienceService'
-import { fetchExperience } from '../../../1.public/app/service/experienceService'
-import { fetchTechnologies, createTechnology } from '../../../1.public/app/service/technologyService'
+} from '../service/experienceService'
+import { fetchTechnologies, createTechnology } from '../service/technologyService'
 
 export const useExperienceAdmin = () => {
   const experience = ref<ExperienceDto[]>([])

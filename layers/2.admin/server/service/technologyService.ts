@@ -1,16 +1,16 @@
-export const getTechnologies = async () => {
-  return await prisma.technology.findMany({
-    where: { deletedAt: null },
-    orderBy: { name: 'asc' },
-    select: { id: true, name: true },
-  })
-}
-
 export const createTechnology = async (createTechnologyDto: CreateTechnologyDto) => {
   await checkIfTechnologyNameIsUnique(createTechnologyDto.name)
 
   return await prisma.technology.create({
     data: createTechnologyDto,
+    select: { id: true, name: true },
+  })
+}
+
+export const getTechnologies = async () => {
+  return await prisma.technology.findMany({
+    where: { deletedAt: null },
+    orderBy: { name: 'asc' },
     select: { id: true, name: true },
   })
 }

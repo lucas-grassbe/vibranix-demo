@@ -3,6 +3,8 @@ const { experience, loading, getExperience } = useExperience()
 
 loading.value = true
 
+loading.value = true
+
 onMounted(() => {
   getExperience()
 })

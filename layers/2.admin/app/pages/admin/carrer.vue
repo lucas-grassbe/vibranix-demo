@@ -4,7 +4,7 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 const {
   experience, techOptions, loading, form, showForm, editingId, deleteId,
   getExperience, getTechnologies, openForm, handleSubmit, submitDelete, submitCreateTechnology,
-} = useExperience()
+} = useExperienceAdmin()
 
 onMounted(async () => {
   await getExperience()
@@ -54,7 +54,7 @@ onMounted(async () => {
     </div>
   </div>
 
-  <UModal v-model:open="showForm" :title="editingId ? 'Editar experiência' : 'Nova experiência'" :ui="{ content: 'max-w-xl' }">
+  <UModal v-model:open="showForm" :title="editingId ? 'Editar experiência' : 'Nova experiência'" description="Preencha os campos abaixo." :ui="{ content: 'max-w-xl' }">
     <template #body>
       <div class="flex flex-col gap-4">
         <UFormField label="Cargo">

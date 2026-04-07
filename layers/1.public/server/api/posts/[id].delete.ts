@@ -1,11 +1,16 @@
+import { deletePost } from '../../service/postService'
+
 export default defineEventHandler(async (event) => {
+  const user = event.context.user
   const postId = Number(getRouterParam(event, 'id'))
 
   if (!postId) {
     throw createError({ statusCode: 400, message: 'Invalid ID' })
   }
 
-  const comments = await getCommentsByPostId(postId)
+  await deletePost(postId, user.sub)
 
-  return comments
+  setResponseStatus(event, 204);
+
+  return
 })

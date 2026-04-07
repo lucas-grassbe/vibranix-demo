@@ -4,7 +4,7 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 const {
   education, loading, form, showForm, editingId, deleteId,
   getEducation, openForm, handleSubmit, submitDelete,
-} = useEducation()
+} = useEducationAdmin()
 
 onMounted(() => {
   getEducation()
@@ -46,7 +46,7 @@ onMounted(() => {
     </div>
   </div>
 
-  <UModal v-model:open="showForm" :title="editingId ? 'Editar formação' : 'Nova formação'">
+  <UModal v-model:open="showForm" :title="editingId ? 'Editar formação' : 'Nova formação'" description="Preencha os campos abaixo.">
     <template #body>
       <div class="flex flex-col gap-4">
         <UFormField label="Grau / Curso">

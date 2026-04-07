@@ -1,3 +1,6 @@
+import { verifyRefreshToken } from '../../service/refreshTokenService';
+import { signAccessToken } from '../../service/jwtService';
+
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ refreshToken: string }>(event);
 

@@ -1,3 +1,5 @@
+import { verifyAccessToken } from '../../service/jwtService';
+
 export default defineEventHandler(async (event) => {
   const authHeader = getRequestHeader(event, 'Authorization');
 

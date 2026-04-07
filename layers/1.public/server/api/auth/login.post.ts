@@ -1,6 +1,8 @@
 import { getUserByEmail } from '../../service/userService';
-import { verifyPassword } from '../../utils/hash';
-import { createRefreshToken } from '../../utils/refreshToken';
+import { verifyPassword } from '../../service/hashService';
+import { createRefreshToken } from '../../service/refreshTokenService';
+import { signAccessToken } from '../../service/jwtService';
+import { generateRefreshToken } from '../../service/refreshTokenService';
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ email: string; password: string }>(event);

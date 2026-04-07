@@ -5,13 +5,6 @@ export const createEducation = async (createEducationDto: CreateEducationDto) =>
   })
 }
 
-export const getEducations = async () => {
-  return await prisma.education.findMany({
-    where: { deletedAt: null },
-    select: { id: true, degree: true, institution: true, startDate: true, endDate: true },
-  })
-}
-
 export const updateEducation = async (id: number, updateEducationDto: UpdateEducationDto) => {
   const education = await prisma.education.findFirst({ where: { id, deletedAt: null } })
 

@@ -1,9 +1,9 @@
+import { fetchEducation } from '../../../1.public/app/service/educationService'
 import {
-  fetchEducation,
   createEducation,
   updateEducation,
   deleteEducation,
-} from '~/service/educationService'
+} from '../service/educationService'
 
 export const useEducationAdmin = () => {
   const education = ref<EducationDto[]>([])

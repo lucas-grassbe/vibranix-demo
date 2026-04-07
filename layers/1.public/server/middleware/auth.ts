@@ -1,3 +1,5 @@
+import { verifyAccessToken } from '../service/jwtService';
+
 const publicPaths = [
   '/api/education',
   '/api/experience',
