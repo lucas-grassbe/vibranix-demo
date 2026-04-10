@@ -6,9 +6,9 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'vercel',
   },*/
-/*  vite: {
+  vite: {
     ssr: {
       noExternal: ['vue'],
     },
-  },*/
+  },
 })
