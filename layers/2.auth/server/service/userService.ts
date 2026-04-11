@@ -1,4 +1,4 @@
-import { hashPassword } from '../service/hashService';
+import { hashPassword } from './hashService';
 
 export const getUserById = async (id: number) => {
   const user = await prisma.user.findUnique({

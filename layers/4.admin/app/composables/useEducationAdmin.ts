@@ -1,18 +1,17 @@
 import {
-  fetchEducation,
   createEducation,
   updateEducation,
   deleteEducation,
 } from '../service/educationService'
 
 export const useEducationAdmin = () => {
-  const education = ref<EducationDto[]>([])
-  const loading = ref(true)
+  const store = useEducationStore()
+  const headers = useAuthHeaders()
+  const toast = useToast()
+
   const showForm = ref(false)
   const editingId = ref<number | null>(null)
   const deleteId = ref<number | null>(null)
-  const headers = useAuthHeaders()
-  const toast = useToast()
 
   const form = reactive<CreateEducationDto>({
     degree: '',
@@ -21,11 +20,8 @@ export const useEducationAdmin = () => {
     endDate: '',
   })
 
-  const getEducation = async () => {
-    loading.value = true
-    education.value = await fetchEducation()
-    loading.value = false
-  }
+  const { fetchEducations } = useEducation()
+  const getEducation = fetchEducations
 
   const openForm = (item?: EducationDto) => {
     editingId.value = item?.id ?? null
@@ -46,11 +42,11 @@ export const useEducationAdmin = () => {
     }
     if (editingId.value) {
       const updated = await updateEducation(editingId.value, body, headers.value)
-      education.value = education.value.map(e => e.id === editingId.value ? updated : e)
+      store.updateEducation(updated)
       toast.add({ title: 'Formação atualizada.', color: 'success' })
     } else {
       const created = await createEducation(body, headers.value)
-      education.value = [...education.value, created]
+      store.addEducation(created)
       toast.add({ title: 'Formação adicionada.', color: 'success' })
     }
     showForm.value = false
@@ -59,13 +55,15 @@ export const useEducationAdmin = () => {
   const submitDelete = async () => {
     if (!deleteId.value) return
     await deleteEducation(deleteId.value, headers.value)
-    education.value = education.value.filter(e => e.id !== deleteId.value)
+    store.removeEducation(deleteId.value)
     deleteId.value = null
     toast.add({ title: 'Formação removida.', color: 'success' })
   }
 
   return {
-    education, loading, form, showForm, editingId, deleteId,
+    education: computed(() => store.education),
+    loading: computed(() => store.loading && !store.education.length),
+    form, showForm, editingId, deleteId,
     getEducation, openForm, handleSubmit, submitDelete,
   }
 }

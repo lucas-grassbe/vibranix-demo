@@ -3,8 +3,6 @@ export default defineNuxtConfig({
   css: ['#layers/0.base/app/assets/css/main.css'],
   modules: [
     '@nuxt/icon',
-    '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt',
     '@nuxt/ui',
     '@vueuse/nuxt',
   ],

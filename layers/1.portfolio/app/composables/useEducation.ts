@@ -1,18 +1,24 @@
 import { fetchEducation } from '../service/educationService'
 
 export const useEducation = () => {
-  const education = ref<EducationDto[]>([])
-  const loading = ref(true)
+  const store = useEducationStore()
 
-  const getEducation = async () => {
-    loading.value = true
-    education.value = await fetchEducation()
-    loading.value = false
+  const fetchEducations = async () => {
+    if (!store.loading && store.education.length) return
+    store.loading = true
+    store.education = await fetchEducation()
+    store.loading = false
+  }
+
+  const refreshEducation = async () => {
+    store.education = []
+    await fetchEducations()
   }
 
   return {
-    education,
-    loading,
-    getEducation,
+    education: computed(() => store.education),
+    loading: computed(() => store.loading),
+    fetchEducations,
+    refreshEducation,
   }
 }
