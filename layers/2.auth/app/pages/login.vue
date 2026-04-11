@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'auth', middleware: 'guest' })
+definePageMeta({ layout: 'auth' })
 import * as z from 'zod'
 import type { AuthFormField } from '@nuxt/ui'
 

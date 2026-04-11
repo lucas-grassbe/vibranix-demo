@@ -1,12 +1,6 @@
 <script setup lang="ts">
-const { experience, loading, getExperience } = useExperience()
-
-loading.value = true
-
-onMounted(() => {
-  getExperience()
-})
-
+const { experience, loading, fetchExperiences } = useExperience()
+await fetchExperiences()
 </script>
 
 <template>

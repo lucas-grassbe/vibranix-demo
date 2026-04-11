@@ -1,5 +1,4 @@
 import {
-  fetchExperience,
   createExperience,
   updateExperience,
   deleteExperience,
@@ -7,9 +6,8 @@ import {
 import { fetchTechnologies, createTechnology } from '../service/technologyService'
 
 export const useExperienceAdmin = () => {
-  const experience = ref<ExperienceDto[]>([])
+  const store = useExperienceStore()
   const technologies = ref<TechnologyDto[]>([])
-  const loading = ref(true)
   const showForm = ref(false)
   const editingId = ref<number | null>(null)
   const deleteId = ref<number | null>(null)
@@ -29,11 +27,8 @@ export const useExperienceAdmin = () => {
     technologies.value.map(t => ({ label: t.name, value: t.id }))
   )
 
-  const getExperience = async () => {
-    loading.value = true
-    experience.value = await fetchExperience()
-    loading.value = false
-  }
+  const { fetchExperiences } = useExperience()
+  const getExperience = fetchExperiences
 
   const getTechnologies = async () => {
     technologies.value = await fetchTechnologies(headers.value)
@@ -60,11 +55,11 @@ export const useExperienceAdmin = () => {
     }
     if (editingId.value) {
       const updated = await updateExperience(editingId.value, body, headers.value)
-      experience.value = experience.value.map(e => e.id === editingId.value ? updated : e)
+      store.updateExperience(updated)
       toast.add({ title: 'Experiência atualizada.', color: 'success' })
     } else {
       const created = await createExperience(body, headers.value)
-      experience.value = [created, ...experience.value]
+      store.addExperience(created)
       toast.add({ title: 'Experiência adicionada.', color: 'success' })
     }
     showForm.value = false
@@ -73,7 +68,7 @@ export const useExperienceAdmin = () => {
   const submitDelete = async () => {
     if (!deleteId.value) return
     await deleteExperience(deleteId.value, headers.value)
-    experience.value = experience.value.filter(e => e.id !== deleteId.value)
+    store.removeExperience(deleteId.value)
     deleteId.value = null
     toast.add({ title: 'Experiência removida.', color: 'success' })
   }
@@ -86,7 +81,9 @@ export const useExperienceAdmin = () => {
   }
 
   return {
-    experience, technologies, techOptions, loading, form, showForm, editingId, deleteId,
+    experience: computed(() => store.experience),
+    loading: computed(() => store.loading && !store.experience.length),
+    technologies, techOptions, form, showForm, editingId, deleteId,
     getExperience, getTechnologies, openForm, handleSubmit, submitDelete, submitCreateTechnology,
   }
 }

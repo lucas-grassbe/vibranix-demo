@@ -1,11 +1,6 @@
 <script setup lang="ts">
-const { education, loading, getEducation } = useEducation()
-
-loading.value = true
-
-onMounted(() => {
-  getEducation()
-})
+const { education, loading, fetchEducations } = useEducation()
+await fetchEducations()
 </script>
 
 <template>
