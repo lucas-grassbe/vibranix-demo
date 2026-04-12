@@ -23,6 +23,11 @@ watch(
     }
   },
 )
+
+const confirmDeleteComment = () => {
+  deleteComment(props.postId!, commentToDeleteId!)
+  commentToDeleteId.value = null
+}
 </script>
 
 <template>
@@ -103,10 +108,7 @@ watch(
     :open="!!commentToDeleteId"
     title="Deletar comentário"
     description="Tem certeza que deseja deletar este comentário?"
-    @confirm="
-      deleteComment(props.postId!, commentToDeleteId!)
-      commentToDeleteId = null
-    "
+    @confirm="confirmDeleteComment"
     @cancel="commentToDeleteId = null"
   />
 </template>
