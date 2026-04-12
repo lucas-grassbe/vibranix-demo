@@ -2,19 +2,31 @@
 const props = defineProps<{ postId: number | null }>()
 const emit = defineEmits<{ close: [] }>()
 
-const { post, comments, loadingModal, content, loading, getPostById, createComment, deleteComment } = usePost()
+const {
+  post,
+  comments,
+  loadingModal,
+  content,
+  loading,
+  getPostById,
+  createComment,
+  deleteComment,
+} = usePost()
 const { data: session } = useAuth()
 const commentToDeleteId = ref<number | null>(null)
 
-watch(() => props.postId, (id) => {
-  if (id) {
-    getPostById(id)
-  }
-})
+watch(
+  () => props.postId,
+  (id) => {
+    if (id) {
+      getPostById(id)
+    }
+  },
+)
 </script>
 
 <template>
-  <UModal :open="!!props.postId" @update:open="emit('close')" title="Post" description=" ">
+  <UModal :open="!!props.postId" title="Post" description=" " @update:open="emit('close')">
     <template #body>
       <div v-if="loadingModal" class="flex flex-col">
         <div class="flex items-center gap-3 mb-4">
@@ -52,7 +64,9 @@ watch(() => props.postId, (id) => {
             <div class="flex items-center gap-2 mb-1">
               <UAvatar :alt="comment.author.name" size="xs" />
               <span class="font-medium">{{ comment.author.name }}</span>
-              <span class="text-muted text-xs">{{ new Date(comment.createdAt).toLocaleDateString('pt-BR') }}</span>
+              <span class="text-muted text-xs">{{
+                new Date(comment.createdAt).toLocaleDateString('pt-BR')
+              }}</span>
               <UButton
                 v-if="session?.id === comment.author.id"
                 icon="i-lucide-trash-2"
@@ -89,7 +103,10 @@ watch(() => props.postId, (id) => {
     :open="!!commentToDeleteId"
     title="Deletar comentário"
     description="Tem certeza que deseja deletar este comentário?"
-    @confirm="deleteComment(props.postId!, commentToDeleteId!); commentToDeleteId = null"
+    @confirm="
+      deleteComment(props.postId!, commentToDeleteId!)
+      commentToDeleteId = null
+    "
     @cancel="commentToDeleteId = null"
   />
 </template>

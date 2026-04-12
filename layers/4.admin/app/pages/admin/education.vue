@@ -2,8 +2,16 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const {
-  education, loading, form, showForm, editingId, deleteId,
-  getEducation, openForm, handleSubmit, submitDelete,
+  education,
+  loading,
+  form,
+  showForm,
+  editingId,
+  deleteId,
+  getEducation,
+  openForm,
+  handleSubmit,
+  submitDelete,
 } = useEducationAdmin()
 
 onMounted(() => {
@@ -38,42 +46,62 @@ onMounted(() => {
           </div>
           <div class="flex gap-2">
             <UButton icon="i-lucide-pencil" variant="ghost" size="xs" @click="openForm(item)" />
-            <UButton icon="i-lucide-trash-2" variant="ghost" color="error" size="xs" @click="deleteId = item.id" />
+            <UButton
+              icon="i-lucide-trash-2"
+              variant="ghost"
+              color="error"
+              size="xs"
+              @click="deleteId = item.id"
+            />
           </div>
         </div>
       </UCard>
-      <p v-if="!education.length" class="text-center text-muted py-12">Nenhuma formação cadastrada.</p>
+      <p v-if="!education.length" class="text-center text-muted py-12">
+        Nenhuma formação cadastrada.
+      </p>
     </div>
-  </div>
 
-  <UModal v-model:open="showForm" :title="editingId ? 'Editar formação' : 'Nova formação'" description="Preencha os campos abaixo.">
-    <template #body>
-      <div class="flex flex-col gap-4">
-        <UFormField label="Grau / Curso">
-          <UInput v-model="form.degree" placeholder="Ex: Bacharelado em Ciência da Computação" class="w-full" />
-        </UFormField>
-        <UFormField label="Instituição">
-          <UInput v-model="form.institution" placeholder="Ex: USP" class="w-full" />
-        </UFormField>
-        <UFormField label="Início">
-          <UInput v-model="form.startDate" type="date" class="w-full" />
-        </UFormField>
-        <UFormField label="Fim (opcional)">
-          <UInput v-model="form.endDate" type="date" class="w-full" />
-        </UFormField>
-        <div class="flex justify-end gap-2 pt-2">
-          <UButton variant="ghost" label="Cancelar" @click="showForm = false" />
-          <UButton label="Salvar" :disabled="!form.degree || !form.institution || !form.startDate" @click="handleSubmit" />
+    <UModal
+      v-model:open="showForm"
+      :title="editingId ? 'Editar formação' : 'Nova formação'"
+      description="Preencha os campos abaixo."
+    >
+      <template #body>
+        <div class="flex flex-col gap-4">
+          <UFormField label="Grau / Curso">
+            <UInput
+              v-model="form.degree"
+              placeholder="Ex: Bacharelado em Ciência da Computação"
+              class="w-full"
+            />
+          </UFormField>
+          <UFormField label="Instituição">
+            <UInput v-model="form.institution" placeholder="Ex: USP" class="w-full" />
+          </UFormField>
+          <UFormField label="Início">
+            <UInput v-model="form.startDate" type="date" class="w-full" />
+          </UFormField>
+          <UFormField label="Fim (opcional)">
+            <UInput v-model="form.endDate" type="date" class="w-full" />
+          </UFormField>
+          <div class="flex justify-end gap-2 pt-2">
+            <UButton variant="ghost" label="Cancelar" @click="showForm = false" />
+            <UButton
+              label="Salvar"
+              :disabled="!form.degree || !form.institution || !form.startDate"
+              @click="handleSubmit"
+            />
+          </div>
         </div>
-      </div>
-    </template>
-  </UModal>
+      </template>
+    </UModal>
 
-  <ConfirmationModal
-    :open="!!deleteId"
-    title="Remover formação"
-    description="Tem certeza que deseja remover esta formação?"
-    @confirm="submitDelete"
-    @cancel="deleteId = null"
-  />
+    <ConfirmationModal
+      :open="!!deleteId"
+      title="Remover formação"
+      description="Tem certeza que deseja remover esta formação?"
+      @confirm="submitDelete"
+      @cancel="deleteId = null"
+    />
+  </div>
 </template>

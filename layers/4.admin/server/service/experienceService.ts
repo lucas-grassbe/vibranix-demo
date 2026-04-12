@@ -72,10 +72,9 @@ export const updateExperience = async (id: number, updateExperienceDto: UpdateEx
     where: { id },
     data: {
       ...data,
-      technologies:
-        technologyIds
-          ? { set: technologyIds.map((techId) => ({ id: techId })) }
-          : undefined,
+      technologies: technologyIds
+        ? { set: technologyIds.map((techId) => ({ id: techId })) }
+        : undefined,
     },
     select: {
       id: true,

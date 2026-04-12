@@ -26,19 +26,27 @@ await fetchExperiences()
 
     <UTimeline
       v-else
-      :items="experience.map(exp => ({
-        title: `${exp.title} · ${exp.company}`,
-        description: exp.description,
-        date: `${new Date(exp.startDate).toLocaleDateString('pt-BR', {month: 'short', year: 'numeric'})} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString('pt-BR', {month: 'short', year: 'numeric'}) : 'Atual'}`,
-        icon: 'i-lucide-code',
-        technologies: exp.technologies,
-      }))"
+      :items="
+        experience.map((exp) => ({
+          title: `${exp.title} · ${exp.company}`,
+          description: exp.description,
+          date: `${new Date(exp.startDate).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' }) : 'Atual'}`,
+          icon: 'i-lucide-code',
+          technologies: exp.technologies,
+        }))
+      "
       color="neutral"
     >
       <template #description="{ item }">
         {{ item.description }}
         <div class="flex flex-wrap gap-1 mt-3">
-          <UBadge v-for="tech in item.technologies" :label="tech.name" variant="subtle" color="primary" />
+          <UBadge
+            v-for="tech in item.technologies"
+            :key="tech.id"
+            :label="tech.name"
+            variant="subtle"
+            color="primary"
+          />
         </div>
       </template>
     </UTimeline>

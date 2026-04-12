@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
 const { logout } = useAppAuth()
-
 </script>
 
 <template>

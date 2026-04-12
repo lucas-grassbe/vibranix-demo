@@ -9,11 +9,12 @@ const hashRefreshToken = (token: string): string => {
 }
 
 export const createRefreshToken = async (userId: number, tokenRaw: string) => {
-
-  const userRefreshTokens = await prisma.refreshToken.findMany({ where: { userId, revokedAt: null } })
+  const userRefreshTokens = await prisma.refreshToken.findMany({
+    where: { userId, revokedAt: null },
+  })
 
   await prisma.refreshToken.updateMany({
-    where: { id: { in: userRefreshTokens.map(t => t.id) } },
+    where: { id: { in: userRefreshTokens.map((t) => t.id) } },
     data: { revokedAt: new Date() },
   })
 
@@ -36,7 +37,10 @@ export const verifyRefreshToken = async (tokenRaw: string): Promise<number> => {
   }
 
   if (refreshToken.expiresAt < new Date()) {
-    await prisma.refreshToken.update({ where: { id: refreshToken.id }, data: { revokedAt: new Date() } })
+    await prisma.refreshToken.update({
+      where: { id: refreshToken.id },
+      data: { revokedAt: new Date() },
+    })
     throw createError({ statusCode: 401, message: 'Refresh token has expired' })
   }
 
