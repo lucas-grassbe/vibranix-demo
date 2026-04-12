@@ -33,7 +33,7 @@ export const usePost = () => {
 
   const createPost = async () => {
     const newPost = await submitPost(content.value.trim(), headers.value)
-    posts.value = [newPost, ...(posts.value)]
+    posts.value = [newPost, ...posts.value]
     content.value = ''
     toast.add({ title: 'Post criado com sucesso.', color: 'success' })
   }
@@ -49,19 +49,28 @@ export const usePost = () => {
 
   const deletePost = async (postId: number) => {
     await removePost(postId, headers.value)
-    posts.value = posts.value.filter(p => p.id !== postId)
+    posts.value = posts.value.filter((p) => p.id !== postId)
     toast.add({ title: 'Post deletado com sucesso.', color: 'success' })
   }
 
   const deleteComment = async (postId: number, commentId: number) => {
     await removeComment(postId, commentId, headers.value)
-    comments.value = comments.value.filter(c => c.id !== commentId)
+    comments.value = comments.value.filter((c) => c.id !== commentId)
     toast.add({ title: 'Comentário deletado com sucesso.', color: 'success' })
   }
 
-  return { 
-    posts, post, comments, content, loading, loadingModal, 
-    getPosts, getPostById, createPost, createComment, 
-    deletePost, deleteComment 
+  return {
+    posts,
+    post,
+    comments,
+    content,
+    loading,
+    loadingModal,
+    getPosts,
+    getPostById,
+    createPost,
+    createComment,
+    deletePost,
+    deleteComment,
   }
 }

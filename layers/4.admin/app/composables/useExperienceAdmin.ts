@@ -1,8 +1,4 @@
-import {
-  createExperience,
-  updateExperience,
-  deleteExperience,
-} from '../service/experienceService'
+import { createExperience, updateExperience, deleteExperience } from '../service/experienceService'
 import { fetchTechnologies, createTechnology } from '../service/technologyService'
 
 export const useExperienceAdmin = () => {
@@ -24,7 +20,7 @@ export const useExperienceAdmin = () => {
   })
 
   const techOptions = computed(() =>
-    technologies.value.map(t => ({ label: t.name, value: t.id }))
+    technologies.value.map((t) => ({ label: t.name, value: t.id })),
   )
 
   const { fetchExperiences } = useExperience()
@@ -42,7 +38,7 @@ export const useExperienceAdmin = () => {
       description: item?.description ?? '',
       startDate: item?.startDate ? new Date(item.startDate).toISOString().slice(0, 10) : '',
       endDate: item?.endDate ? new Date(item.endDate).toISOString().slice(0, 10) : '',
-      technologyIds: item?.technologies.map(t => t.id) ?? [],
+      technologyIds: item?.technologies.map((t) => t.id) ?? [],
     })
     showForm.value = true
   }
@@ -83,7 +79,17 @@ export const useExperienceAdmin = () => {
   return {
     experience: computed(() => store.experience),
     loading: computed(() => store.loading && !store.experience.length),
-    technologies, techOptions, form, showForm, editingId, deleteId,
-    getExperience, getTechnologies, openForm, handleSubmit, submitDelete, submitCreateTechnology,
+    technologies,
+    techOptions,
+    form,
+    showForm,
+    editingId,
+    deleteId,
+    getExperience,
+    getTechnologies,
+    openForm,
+    handleSubmit,
+    submitDelete,
+    submitCreateTechnology,
   }
 }

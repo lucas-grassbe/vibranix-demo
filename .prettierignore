@@ -1,0 +1,9 @@
+node_modules
+.nuxt
+.output
+dist
+pnpm-lock.yaml
+docker-compose.yml
+.github
+*.yml
+prisma/generated

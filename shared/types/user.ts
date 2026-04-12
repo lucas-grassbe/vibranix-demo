@@ -6,17 +6,17 @@ export type UserDto = {
 }
 
 export type CreateUserDto = {
-  name: string;
-  email: string;
-  password: string;
+  name: string
+  email: string
+  password: string
 }
 
 export type LoginDto = {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export type LoginResponseDto = {
-  token: string;
-  refreshToken: string;
+  token: string
+  refreshToken: string
 }

@@ -12,8 +12,12 @@ export const updateEducation = async (id: number, updateEducationDto: UpdateEduc
     throw createError({ statusCode: 404, message: 'Education not found' })
   }
 
-  const educationStart = !updateEducationDto.startDate ? education.startDate : new Date(updateEducationDto.startDate)
-  const educationEnd = !updateEducationDto.endDate ? education.endDate : new Date(updateEducationDto.endDate)
+  const educationStart = !updateEducationDto.startDate
+    ? education.startDate
+    : new Date(updateEducationDto.startDate)
+  const educationEnd = !updateEducationDto.endDate
+    ? education.endDate
+    : new Date(updateEducationDto.endDate)
 
   if (educationEnd != null && educationStart > educationEnd) {
     throw createError({ statusCode: 400, message: 'Start date cannot be after end date' })

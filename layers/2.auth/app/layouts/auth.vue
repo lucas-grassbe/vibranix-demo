@@ -1,9 +1,8 @@
 <script setup lang="ts">
-
 const { status } = useAuth()
 
 useHead({
-  title: 'Feed - Demo'
+  title: 'Feed - Demo',
 })
 </script>
 

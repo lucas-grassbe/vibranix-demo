@@ -1,8 +1,4 @@
-import {
-  createEducation,
-  updateEducation,
-  deleteEducation,
-} from '../service/educationService'
+import { createEducation, updateEducation, deleteEducation } from '../service/educationService'
 
 export const useEducationAdmin = () => {
   const store = useEducationStore()
@@ -63,7 +59,13 @@ export const useEducationAdmin = () => {
   return {
     education: computed(() => store.education),
     loading: computed(() => store.loading && !store.education.length),
-    form, showForm, editingId, deleteId,
-    getEducation, openForm, handleSubmit, submitDelete,
+    form,
+    showForm,
+    editingId,
+    deleteId,
+    getEducation,
+    openForm,
+    handleSubmit,
+    submitDelete,
   }
 }

@@ -39,8 +39,13 @@ export const checkIfTechnologyNameIsUnique = async (name: string) => {
 }
 
 export const checkIfTechnologyIdsExistAndActive = async (technologyIds: number[]) => {
-  const existing = await prisma.technology.findMany({ where: { id: { in: technologyIds }, deletedAt: null } })
+  const existing = await prisma.technology.findMany({
+    where: { id: { in: technologyIds }, deletedAt: null },
+  })
   if (existing.length !== technologyIds.length) {
-    throw createError({ statusCode: 400, message: 'One or more technologies are invalid or inactive' })
+    throw createError({
+      statusCode: 400,
+      message: 'One or more technologies are invalid or inactive',
+    })
   }
 }

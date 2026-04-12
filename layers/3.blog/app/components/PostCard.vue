@@ -3,13 +3,16 @@ defineProps<{
   post: PostDto
 }>()
 
-const emit = defineEmits<{ select: [id: number], delete: [id: number] }>()
+const emit = defineEmits<{ select: [id: number]; delete: [id: number] }>()
 
 const { data: session } = useAuth()
 </script>
 
 <template>
-  <UCard class="hover:ring-2 hover:ring-primary transition cursor-pointer my-5" @click="emit('select', post.id)">
+  <UCard
+    class="hover:ring-2 hover:ring-primary transition cursor-pointer my-5"
+    @click="emit('select', post.id)"
+  >
     <div class="flex justify-between items-start">
       <PostBody :post="post" class="flex-1" />
       <UButton

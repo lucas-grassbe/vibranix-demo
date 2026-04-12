@@ -1,4 +1,8 @@
-export const createComment = async (data: { content: string; authorId: number; postId: number }) => {
+export const createComment = async (data: {
+  content: string
+  authorId: number
+  postId: number
+}) => {
   return await prisma.comment.create({
     data,
     select: {

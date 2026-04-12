@@ -7,17 +7,17 @@ const items = computed(() => [
   {
     label: 'Home',
     to: '/',
-    active: route.path === '/'
+    active: route.path === '/',
   },
   {
     label: 'Carreira',
     to: '/carrer',
-    active: route.path.startsWith('/carrer')
+    active: route.path.startsWith('/carrer'),
   },
   {
     label: 'Formação',
     to: '/education',
-    active: route.path.startsWith('/education')
+    active: route.path.startsWith('/education'),
   },
 ])
 </script>
@@ -27,8 +27,8 @@ const items = computed(() => [
     <template #title>{{ personalInfo.name }}</template>
     <UNavigationMenu :items="items" />
     <template #right>
-        <UButton label="Login" size="sm" to="/login" />
-        <UButton label="Cadastro" size="sm" variant="ghost" to="/register" />
+      <UButton label="Login" size="sm" to="/login" />
+      <UButton label="Cadastro" size="sm" variant="ghost" to="/register" />
       <UColorModeButton />
     </template>
   </UHeader>
