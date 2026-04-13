@@ -4,56 +4,67 @@ import type { AuthFormField } from '@nuxt/ui'
 definePageMeta({ layout: 'auth' })
 
 const { register } = useAppAuth()
+const { t } = useI18n()
+const localePath = useLocalePath()
 
-const fields: AuthFormField[] = [
+const fields = computed<AuthFormField[]>(() => [
   {
     name: 'name',
     type: 'text',
-    label: 'Nome',
-    placeholder: 'Digite seu nome',
+    label: t('auth.name'),
+    placeholder: t('auth.namePlaceholder'),
     required: true,
   },
   {
     name: 'email',
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Digite seu e-mail',
+    label: t('auth.email'),
+    placeholder: t('auth.emailPlaceholder'),
     required: true,
   },
   {
     name: 'password',
-    label: 'Senha',
+    label: t('auth.password'),
     type: 'password',
-    placeholder: 'Mínimo 6 caracteres',
+    placeholder: t('auth.passwordMinPlaceholder'),
     required: true,
   },
-]
+])
 
-const schema = z.object({
-  name: z.string().min(2, 'Nome deve ter ao menos 2 caracteres'),
-  email: z.email('E-mail inválido'),
-  password: z.string().min(6, 'Senha deve ter ao menos 6 caracteres'),
-})
+const schema = computed(() =>
+  z.object({
+    name: z.string().min(2, t('auth.validation.nameMin')),
+    email: z.email(t('auth.validation.emailInvalid')),
+    password: z.string().min(6, t('auth.validation.passwordMin')),
+  }),
+)
 </script>
 
 <template>
   <div class="relative min-h-screen flex flex-col items-center justify-center gap-4 p-4">
-    <UButton icon="i-lucide-arrow-left" variant="ghost" class="absolute top-4 left-4" to="/">
-      Voltar
+    <UButton
+      icon="i-lucide-arrow-left"
+      variant="ghost"
+      class="absolute top-4 left-4"
+      :to="localePath('/')"
+    >
+      {{ t('auth.back') }}
     </UButton>
     <UPageCard class="w-full max-w-md">
       <UAuthForm
         :schema="schema"
-        title="Cadastro"
-        description="Crie sua conta para começar"
+        :title="t('auth.registerTitle')"
+        :description="t('auth.registerDesc')"
         icon="i-lucide-user-plus"
         :fields="fields"
         @submit="register($event.data)"
       >
         <template #footer>
           <p class="text-sm text-center text-muted">
-            Já tem conta?
-            <NuxtLink to="/login" class="text-primary font-medium">Entrar</NuxtLink>
+            {{ t('auth.hasAccount') }}
+            <NuxtLink :to="localePath('/login')" class="text-primary font-medium">{{
+              t('auth.signIn')
+            }}</NuxtLink>
           </p>
         </template>
       </UAuthForm>

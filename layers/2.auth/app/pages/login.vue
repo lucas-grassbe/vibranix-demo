@@ -4,48 +4,59 @@ import type { AuthFormField } from '@nuxt/ui'
 definePageMeta({ layout: 'auth' })
 
 const { login } = useAppAuth()
+const { t } = useI18n()
+const localePath = useLocalePath()
 
-const fields: AuthFormField[] = [
+const fields = computed<AuthFormField[]>(() => [
   {
     name: 'email',
     type: 'email',
-    label: 'E-mail',
-    placeholder: 'Digite seu e-mail',
+    label: t('auth.email'),
+    placeholder: t('auth.emailPlaceholder'),
     required: true,
   },
   {
     name: 'password',
-    label: 'Senha',
+    label: t('auth.password'),
     type: 'password',
-    placeholder: 'Digite sua senha',
+    placeholder: t('auth.passwordPlaceholder'),
     required: true,
   },
-]
+])
 
-const schema = z.object({
-  email: z.email('E-mail inválido'),
-  password: z.string().min(1, 'Senha é obrigatória'),
-})
+const schema = computed(() =>
+  z.object({
+    email: z.email(t('auth.validation.emailInvalid')),
+    password: z.string().min(1, t('auth.validation.passwordRequired')),
+  }),
+)
 </script>
 
 <template>
   <div class="relative min-h-screen flex flex-col items-center justify-center">
-    <UButton icon="i-lucide-arrow-left" variant="ghost" class="absolute top-4 left-2" to="/">
-      Voltar
+    <UButton
+      icon="i-lucide-arrow-left"
+      variant="ghost"
+      class="absolute top-4 left-2"
+      :to="localePath('/')"
+    >
+      {{ t('auth.back') }}
     </UButton>
     <UPageCard class="w-full max-w-md">
       <UAuthForm
         :schema="schema"
-        title="Login"
-        description="Entre com suas credenciais para entrar em sua conta"
+        :title="t('auth.loginTitle')"
+        :description="t('auth.loginDesc')"
         icon="i-lucide-user"
         :fields="fields"
         @submit="login($event.data)"
       >
         <template #footer>
           <p class="text-sm text-center text-muted">
-            Não tem conta?
-            <NuxtLink to="/register" class="text-primary font-medium">Cadastre-se</NuxtLink>
+            {{ t('auth.noAccount') }}
+            <NuxtLink :to="localePath('/register')" class="text-primary font-medium">{{
+              t('auth.signUp')
+            }}</NuxtLink>
           </p>
         </template>
       </UAuthForm>

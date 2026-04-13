@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 
+const { t, locale } = useI18n()
 const {
   experience,
   techOptions,
@@ -26,8 +27,8 @@ onMounted(async () => {
 <template>
   <div class="max-w-3xl mx-auto py-8 px-4">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-bold">Carreira</h1>
-      <UButton icon="i-lucide-plus" label="Adicionar" @click="openForm()" />
+      <h1 class="text-2xl font-bold">{{ t('admin.career') }}</h1>
+      <UButton icon="i-lucide-plus" :label="t('admin.add')" @click="openForm()" />
     </div>
 
     <div v-if="loading" class="flex flex-col gap-4">
@@ -46,7 +47,7 @@ onMounted(async () => {
             <p class="text-sm text-muted">{{ item.company }}</p>
             <p class="text-xs text-muted mt-1">
               {{
-                new Date(item.startDate).toLocaleDateString('pt-BR', {
+                new Date(item.startDate).toLocaleDateString(locale, {
                   month: 'short',
                   year: 'numeric',
                 })
@@ -54,11 +55,11 @@ onMounted(async () => {
               —
               {{
                 item.endDate
-                  ? new Date(item.endDate).toLocaleDateString('pt-BR', {
+                  ? new Date(item.endDate).toLocaleDateString(locale, {
                       month: 'short',
                       year: 'numeric',
                     })
-                  : 'Atual'
+                  : t('common.current')
               }}
             </p>
             <p class="text-sm mt-2">{{ item.description }}</p>
@@ -81,29 +82,29 @@ onMounted(async () => {
         </div>
       </UCard>
       <p v-if="!experience.length" class="text-center text-muted py-12">
-        Nenhuma experiência cadastrada.
+        {{ t('admin.noExperience') }}
       </p>
     </div>
 
     <UModal
       v-model:open="showForm"
-      :title="editingId ? 'Editar experiência' : 'Nova experiência'"
-      description="Preencha os campos abaixo."
+      :title="editingId ? t('admin.editExperience') : t('admin.newExperience')"
+      :description="t('admin.fillFields')"
       :ui="{ content: 'max-w-xl' }"
     >
       <template #body>
         <div class="flex flex-col gap-4">
-          <UFormField label="Cargo">
+          <UFormField :label="t('admin.jobTitle')">
             <UInput
               v-model="form.title"
               placeholder="Ex: Desenvolvedor de Software"
               class="w-full"
             />
           </UFormField>
-          <UFormField label="Empresa">
+          <UFormField :label="t('admin.company')">
             <UInput v-model="form.company" placeholder="Ex: Google" class="w-full" />
           </UFormField>
-          <UFormField label="Descrição">
+          <UFormField :label="t('admin.description')">
             <UTextarea
               v-model="form.description"
               placeholder="Descreva suas atividades..."
@@ -113,14 +114,14 @@ onMounted(async () => {
             />
           </UFormField>
           <div class="grid grid-cols-2 gap-4">
-            <UFormField label="Início">
+            <UFormField :label="t('admin.startDate')">
               <UInput v-model="form.startDate" type="date" class="w-full" />
             </UFormField>
-            <UFormField label="Fim (opcional)">
+            <UFormField :label="t('admin.endDate')">
               <UInput v-model="form.endDate" type="date" class="w-full" />
             </UFormField>
           </div>
-          <UFormField label="Tecnologias">
+          <UFormField :label="t('admin.technologies')">
             <USelectMenu
               v-model="form.technologyIds"
               :items="techOptions"
@@ -128,15 +129,15 @@ onMounted(async () => {
               label-key="label"
               multiple
               create-item
-              placeholder="Selecione tecnologias"
+              :placeholder="t('admin.selectTechnologies')"
               class="w-full"
               @create="submitCreateTechnology"
             />
           </UFormField>
           <div class="flex justify-end gap-2 pt-2">
-            <UButton variant="ghost" label="Cancelar" @click="showForm = false" />
+            <UButton variant="ghost" :label="t('confirm.cancel')" @click="showForm = false" />
             <UButton
-              label="Salvar"
+              :label="t('admin.save')"
               :disabled="!form.title || !form.company || !form.startDate"
               @click="handleSubmit"
             />
@@ -147,8 +148,8 @@ onMounted(async () => {
 
     <ConfirmationModal
       :open="!!deleteId"
-      title="Remover experiência"
-      description="Tem certeza que deseja remover esta experiência?"
+      :title="t('admin.removeExperience')"
+      :description="t('admin.removeExperienceDesc')"
       @confirm="submitDelete"
       @cancel="deleteId = null"
     />

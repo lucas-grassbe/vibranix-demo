@@ -1,7 +1,6 @@
 <script setup lang="ts">
-useHead({
-  title: 'Dev Lucas Grass Beraldo',
-})
+const { t } = useI18n()
+useHead({ title: () => `${t('bio.title')} · Lucas Grass Beraldo` })
 </script>
 
 <template>

@@ -2,6 +2,7 @@
 const props = defineProps<{ postId: number | null }>()
 const emit = defineEmits<{ close: [] }>()
 
+const { t } = useI18n()
 const {
   post,
   comments,
@@ -60,9 +61,9 @@ const confirmDeleteComment = () => {
 
         <USeparator class="mb-4" />
 
-        <h3 class="font-semibold mb-3">Comentários ({{ comments.length }})</h3>
+        <h3 class="font-semibold mb-3">{{ t('feed.comments') }} ({{ comments.length }})</h3>
 
-        <p v-if="!comments.length" class="text-sm text-muted mb-4">Nenhum comentário ainda.</p>
+        <p v-if="!comments.length" class="text-sm text-muted mb-4">{{ t('feed.noComments') }}</p>
 
         <div class="flex flex-col gap-3 mb-6">
           <div v-for="comment in comments" :key="comment.id" class="text-sm">
@@ -89,7 +90,7 @@ const confirmDeleteComment = () => {
         <div class="flex gap-2">
           <UTextarea
             v-model="content"
-            placeholder="Escreva um comentário..."
+            :placeholder="t('feed.commentPlaceholder')"
             :rows="2"
             class="flex-1"
             autoresize
@@ -106,8 +107,8 @@ const confirmDeleteComment = () => {
   </UModal>
   <ConfirmationModal
     :open="!!commentToDeleteId"
-    title="Deletar comentário"
-    description="Tem certeza que deseja deletar este comentário?"
+    :title="t('feed.deleteComment')"
+    :description="t('feed.deleteCommentDesc')"
     @confirm="confirmDeleteComment"
     @cancel="commentToDeleteId = null"
   />
