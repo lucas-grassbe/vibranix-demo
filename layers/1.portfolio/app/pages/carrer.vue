@@ -1,11 +1,12 @@
 <script setup lang="ts">
+const { t, locale } = useI18n()
 const { experience, loading, fetchExperiences } = useExperience()
 await fetchExperiences()
 </script>
 
 <template>
   <div>
-    <ui-title-page title="Experiência" />
+    <ui-title-page :title="t('pages.career')" />
 
     <div v-if="loading" class="flex flex-col gap-6">
       <div v-for="i in 3" :key="i" class="flex gap-4">
@@ -30,7 +31,7 @@ await fetchExperiences()
         experience.map((exp) => ({
           title: `${exp.title} · ${exp.company}`,
           description: exp.description,
-          date: `${new Date(exp.startDate).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' }) : 'Atual'}`,
+          date: `${new Date(exp.startDate).toLocaleDateString(locale.value, { month: 'short', year: 'numeric' })} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString(locale.value, { month: 'short', year: 'numeric' }) : t('common.current')}`,
           icon: 'i-lucide-code',
           technologies: exp.technologies,
         }))

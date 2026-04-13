@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import { personalInfo } from '../../data/personalInfo'
 
+const { t } = useI18n()
+const localePath = useLocalePath()
 const route = useRoute()
 
 const items = computed(() => [
   {
-    label: 'Home',
-    to: '/',
-    active: route.path === '/',
+    label: t('nav.home'),
+    to: localePath('/'),
+    active: route.path === '/' || route.path === '/en',
   },
   {
-    label: 'Carreira',
-    to: '/carrer',
-    active: route.path.startsWith('/carrer'),
+    label: t('nav.career'),
+    to: localePath('/carrer'),
+    active: route.path.includes('/carrer'),
   },
   {
-    label: 'Formação',
-    to: '/education',
-    active: route.path.startsWith('/education'),
+    label: t('nav.education'),
+    to: localePath('/education'),
+    active: route.path.includes('/education'),
   },
 ])
 </script>
@@ -27,8 +29,14 @@ const items = computed(() => [
     <template #title>{{ personalInfo.name }}</template>
     <UNavigationMenu :items="items" />
     <template #right>
-      <UButton label="Login" size="sm" to="/login" />
-      <UButton label="Cadastro" size="sm" variant="ghost" to="/register" />
+      <UButton :label="t('auth.login')" size="sm" :to="localePath('/login')" />
+      <UButton
+        :label="t('auth.register')"
+        size="sm"
+        variant="ghost"
+        :to="localePath('/register')"
+      />
+      <layouts-locale-switcher />
       <UColorModeButton />
     </template>
   </UHeader>

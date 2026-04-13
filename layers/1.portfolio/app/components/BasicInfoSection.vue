@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { personalInfo, socialLinks } from '../data/personalInfo'
 
-const info = personalInfo
+const { t } = useI18n()
 </script>
 
 <template>
   <div>
-    <UPageHero :title="info.name" :subtitle="info.title" :description="info.about" />
+    <UPageHero
+      :title="personalInfo.name"
+      :subtitle="t('bio.title')"
+      :description="t('bio.about')"
+    />
     <div class="flex justify-center gap-2">
       <UButton
         v-for="link in socialLinks"

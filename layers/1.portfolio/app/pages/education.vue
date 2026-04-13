@@ -1,11 +1,12 @@
 <script setup lang="ts">
+const { t, locale } = useI18n()
 const { education, loading, fetchEducations } = useEducation()
 await fetchEducations()
 </script>
 
 <template>
   <div>
-    <ui-title-page title="Formação" />
+    <ui-title-page :title="t('pages.education')" />
 
     <template v-if="loading">
       <UPageCard v-for="i in 3" :key="i" class="mb-4">
@@ -19,7 +20,7 @@ await fetchEducations()
         v-for="item in education"
         :key="item.id"
         :title="`${item.degree} · ${item.institution}`"
-        :description="`${new Date(item.startDate).toLocaleDateString('pt-BR')} - ${item.endDate ? new Date(item.endDate).toLocaleDateString('pt-BR') : 'Atual'}`"
+        :description="`${new Date(item.startDate).toLocaleDateString(locale.value)} - ${item.endDate ? new Date(item.endDate).toLocaleDateString(locale.value) : t('common.current')}`"
         class="mb-4"
       />
     </template>

@@ -1,0 +1,89 @@
+{
+  "nav": {
+    "home": "Home",
+    "career": "Carreira",
+    "education": "Formação"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Cadastro",
+    "logout": "Sair",
+    "back": "Voltar",
+    "email": "E-mail",
+    "emailPlaceholder": "Digite seu e-mail",
+    "password": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
+    "name": "Nome",
+    "namePlaceholder": "Digite seu nome",
+    "passwordMinPlaceholder": "Mínimo 6 caracteres",
+    "noAccount": "Não tem conta?",
+    "hasAccount": "Já tem conta?",
+    "signUp": "Cadastre-se",
+    "signIn": "Entrar",
+    "loginTitle": "Login",
+    "loginDesc": "Entre com suas credenciais para entrar em sua conta",
+    "registerTitle": "Cadastro",
+    "registerDesc": "Crie sua conta para começar",
+    "validation": {
+      "emailInvalid": "E-mail inválido",
+      "passwordRequired": "Senha é obrigatória",
+      "nameMin": "Nome deve ter ao menos 2 caracteres",
+      "passwordMin": "Senha deve ter ao menos 6 caracteres"
+    }
+  },
+  "pages": {
+    "career": "Experiência",
+    "education": "Formação"
+  },
+  "common": {
+    "current": "Atual",
+    "noItems": "Nenhum item cadastrado."
+  },
+  "bio": {
+    "title": "Engenheiro de Software",
+    "tagline": "Desenvolvimento backend com experiência em NLP",
+    "about": "Sou engenheiro de software com experiência em NLP e foco em desenvolvimento backend. Atualmente, atuo na construção de APIs escaláveis utilizando NestJS e Prisma."
+  },
+  "feed": {
+    "placeholder": "No que você está pensando?",
+    "noPosts": "Nenhum post ainda.",
+    "title": "Feed",
+    "deletePost": "Deletar post",
+    "deletePostDesc": "Tem certeza que deseja deletar este post?",
+    "deleteComment": "Deletar comentário",
+    "deleteCommentDesc": "Tem certeza que deseja deletar este comentário?",
+    "comments": "Comentários",
+    "noComments": "Nenhum comentário ainda.",
+    "commentPlaceholder": "Escreva um comentário..."
+  },
+  "admin": {
+    "career": "Carreira",
+    "education": "Formação",
+    "add": "Adicionar",
+    "editExperience": "Editar experiência",
+    "newExperience": "Nova experiência",
+    "editEducation": "Editar formação",
+    "newEducation": "Nova formação",
+    "removeExperience": "Remover experiência",
+    "removeExperienceDesc": "Tem certeza que deseja remover esta experiência?",
+    "removeEducation": "Remover formação",
+    "removeEducationDesc": "Tem certeza que deseja remover esta formação?",
+    "noExperience": "Nenhuma experiência cadastrada.",
+    "noEducation": "Nenhuma formação cadastrada.",
+    "fillFields": "Preencha os campos abaixo.",
+    "save": "Salvar",
+    "jobTitle": "Cargo",
+    "company": "Empresa",
+    "description": "Descrição",
+    "startDate": "Início",
+    "endDate": "Fim (opcional)",
+    "technologies": "Tecnologias",
+    "selectTechnologies": "Selecione tecnologias",
+    "degree": "Grau / Curso",
+    "institution": "Instituição"
+  },
+  "confirm": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  }
+}

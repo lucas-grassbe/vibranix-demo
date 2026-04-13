@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'auth', middleware: 'sidebase-auth' })
 
+const { t } = useI18n()
 const { posts, content, loading, getPosts, createPost, deletePost } = usePost()
 const selectedPostId = ref<number | null>(null)
 const postToDeleteId = ref<number | 0>(0)
@@ -17,12 +18,12 @@ const confirmDeletePost = () => {
 
 <template>
   <div class="max-w-2xl mx-auto py-8 px-4 flex flex-col gap-4">
-    <h1 class="text-2xl font-bold">Feed</h1>
+    <h1 class="text-2xl font-bold">{{ t('feed.title') }}</h1>
     <UCard>
       <div class="flex gap-2">
         <UTextarea
           v-model="content"
-          placeholder="No que você está pensando?"
+          :placeholder="t('feed.placeholder')"
           :rows="3"
           class="flex-1"
           autoresize
@@ -58,14 +59,14 @@ const confirmDeletePost = () => {
           @delete="postToDeleteId = $event"
         />
       </template>
-      <p v-else class="text-center text-muted py-12">Nenhum post ainda.</p>
+      <p v-else class="text-center text-muted py-12">{{ t('feed.noPosts') }}</p>
     </div>
 
     <PostModal :post-id="selectedPostId" @close="selectedPostId = null" />
     <ConfirmationModal
       :open="!!postToDeleteId"
-      title="Deletar post"
-      description="Tem certeza que deseja deletar este post?"
+      :title="t('feed.deletePost')"
+      :description="t('feed.deletePostDesc')"
       @confirm="confirmDeletePost"
       @cancel="postToDeleteId = 0"
     />
