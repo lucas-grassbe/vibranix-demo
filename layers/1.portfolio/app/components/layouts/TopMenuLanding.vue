@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { personalInfo } from '../../data/personalInfo'
-
 const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
@@ -26,7 +24,7 @@ const items = computed(() => [
 
 <template>
   <UHeader>
-    <template #title>{{ personalInfo.name }}</template>
+    <template #title>{{ t('bio.name') }}</template>
     <UNavigationMenu :items="items" />
     <template #right>
       <UButton :label="t('auth.login')" size="sm" :to="localePath('/login')" />

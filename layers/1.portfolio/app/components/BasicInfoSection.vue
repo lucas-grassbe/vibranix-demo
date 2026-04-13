@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { personalInfo, socialLinks } from '../data/personalInfo'
-
 const { t } = useI18n()
+
+const socialLinks = computed(() => [
+  { name: 'GitHub', url: t('bio.github') },
+  { name: 'LinkedIn', url: t('bio.linkedin') },
+])
 </script>
 
 <template>
   <div>
-    <UPageHero
-      :title="personalInfo.name"
-      :subtitle="t('bio.title')"
-      :description="t('bio.about')"
-    />
+    <UPageHero :title="t('bio.name')" :subtitle="t('bio.title')" :description="t('bio.about')" />
     <div class="flex justify-center gap-2">
       <UButton
         v-for="link in socialLinks"

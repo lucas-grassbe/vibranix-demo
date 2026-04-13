@@ -40,9 +40,13 @@
     "noItems": "No items found."
   },
   "bio": {
+    "name": "Lucas Grass Beraldo",
     "title": "Software Engineer",
     "tagline": "Backend development with NLP experience",
-    "about": "I am a software engineer with experience in NLP and a focus on backend development. Currently building scalable APIs using NestJS and Prisma."
+    "about": "I am a software engineer with experience in NLP and a focus on backend development. Currently building scalable APIs using NestJS and Prisma.",
+    "resumeUrl": "https://www.linkedin.com/in/lucas-grass/",
+    "github": "https://github.com/lucasgrass",
+    "linkedin": "https://www.linkedin.com/in/lucas-grass/"
   },
   "feed": {
     "placeholder": "What's on your mind?",
