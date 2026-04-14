@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  output   = "./generated"
 }
 
 datasource db {
@@ -44,6 +44,7 @@ model RefreshToken {
 model Post {
   id       Int     @id @default(autoincrement())
   content  String
+  imageUrl String?
   edited   Boolean @default(false)
   authorId Int
 
@@ -102,12 +103,12 @@ model Experience {
 }
 
 model Technology {
-  id          Int          @id @default(autoincrement())
-  name        String
+  id   Int    @id @default(autoincrement())
+  name String
 
   experiences Experience[] @relation("ExperienceTechnologies")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
 }

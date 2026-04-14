@@ -104,6 +104,7 @@ export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[k
 export const PostScalarFieldEnum = {
   id: 'id',
   content: 'content',
+  imageUrl: 'imageUrl',
   edited: 'edited',
   authorId: 'authorId',
   createdAt: 'createdAt',

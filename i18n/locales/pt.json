@@ -58,7 +58,8 @@
     "deleteCommentDesc": "Tem certeza que deseja deletar este comentário?",
     "comments": "Comentários",
     "noComments": "Nenhum comentário ainda.",
-    "commentPlaceholder": "Escreva um comentário..."
+    "commentPlaceholder": "Escreva um comentário...",
+    "attachImage": "Postar imagem"
   },
   "admin": {
     "career": "Carreira",

@@ -6,8 +6,15 @@ export const fetchPostById = async (id: number, headers: AuthHeaders): Promise<P
   return $fetch(`/api/posts/${id}`, { headers })
 }
 
-export const submitPost = async (content: string, headers: AuthHeaders): Promise<PostDto> => {
-  return $fetch('/api/posts', { method: 'POST', body: { content }, headers })
+export const submitPost = async (
+  content: string,
+  headers: AuthHeaders,
+  file?: File,
+): Promise<PostDto> => {
+  const formData = new FormData()
+  formData.append('content', content)
+  if (file) formData.append('file', file)
+  return $fetch('/api/posts', { method: 'POST', body: formData, headers })
 }
 
 export const submitComment = async (

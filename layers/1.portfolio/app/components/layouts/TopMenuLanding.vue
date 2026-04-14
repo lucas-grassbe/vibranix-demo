@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from '#ui/components/NavigationMenu.vue'
+
 const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-const items = computed(() => [
+const items = computed<NavigationMenuItem[]>(() => [
   {
     label: t('nav.home'),
     to: localePath('/'),
@@ -36,6 +38,9 @@ const items = computed(() => [
       />
       <layouts-locale-switcher />
       <UColorModeButton />
+    </template>
+    <template #body>
+      <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
     </template>
   </UHeader>
 </template>
