@@ -2,18 +2,36 @@
 definePageMeta({ layout: 'auth', middleware: 'sidebase-auth' })
 
 const { t } = useI18n()
-const { posts, content, loading, getPosts, createPost, deletePost } = usePost()
+const { posts, content, imageFile, loading, loadingCreate, getPosts, createPost, deletePost } =
+  usePost()
+
 const selectedPostId = ref<number | null>(null)
 const postToDeleteId = ref<number | 0>(0)
+const fileInputRef = ref<HTMLInputElement | null>(null)
+const imagePreview = ref<string | null>(null)
 
-onMounted(() => {
-  getPosts()
-})
+const onFileChange = (e: Event) => {
+  imageFile.value = (e.target as HTMLInputElement).files?.[0] ?? null
+}
+
+const onClearImage = () => {
+  imageFile.value = null
+  if (fileInputRef.value) fileInputRef.value.value = ''
+}
 
 const confirmDeletePost = () => {
   deletePost(postToDeleteId.value)
   postToDeleteId.value = 0
 }
+
+watch(imageFile, (_, oldFile) => {
+  if (oldFile && imagePreview.value) URL.revokeObjectURL(imagePreview.value)
+  imagePreview.value = imageFile.value ? URL.createObjectURL(imageFile.value) : null
+})
+
+onMounted(() => {
+  getPosts()
+})
 </script>
 
 <template>
@@ -30,10 +48,32 @@ const confirmDeletePost = () => {
         />
         <UButton
           icon="i-lucide-send"
-          :loading="loading"
-          :disabled="!content.trim()"
+          :loading="loadingCreate"
+          :disabled="!content.trim() || loadingCreate"
           @click="createPost()"
         />
+      </div>
+      <div class="mt-2 flex items-center gap-2">
+        <input
+          ref="fileInputRef"
+          type="file"
+          accept="image/*"
+          class="hidden"
+          @change="onFileChange"
+        />
+        <UButton icon="i-lucide-paperclip" variant="ghost" size="sm" @click="fileInputRef?.click()">
+          {{ t('feed.attachImage') }}
+        </UButton>
+        <div v-if="imagePreview" class="relative inline-flex items-start">
+          <NuxtImg :src="imagePreview" class="h-16 w-16 rounded object-cover" width="150" />
+          <UButton
+            icon="i-lucide-x"
+            color="neutral"
+            size="xs"
+            class="absolute top-0 right-0"
+            @click="onClearImage"
+          />
+        </div>
       </div>
     </UCard>
     <div v-if="loading">

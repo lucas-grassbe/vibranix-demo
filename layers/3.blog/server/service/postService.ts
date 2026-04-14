@@ -1,9 +1,23 @@
-export const createPost = async (data: { content: string; authorId: number }) => {
-  return await prisma.post.create({
-    data,
+import { uploadImageToR2 } from './r2Service'
+
+type CreatePostInput = {
+  content: string
+  authorId: number
+  file?: { data: Buffer; type: string }
+}
+
+export const createPost = async ({ content, authorId, file }: CreatePostInput) => {
+  let imageUrl: string | undefined
+  if (file) {
+    imageUrl = await uploadImageToR2(file.data, file.type)
+  }
+
+  return prisma.post.create({
+    data: { content, imageUrl, authorId },
     select: {
       id: true,
       content: true,
+      imageUrl: true,
       edited: true,
       createdAt: true,
       author: { select: { id: true, name: true } },
@@ -17,6 +31,7 @@ export const getPostById = async (id: number) => {
     select: {
       id: true,
       content: true,
+      imageUrl: true,
       edited: true,
       createdAt: true,
       author: { select: { id: true, name: true } },
@@ -41,12 +56,13 @@ export const getPostById = async (id: number) => {
 }
 
 export const getPosts = async () => {
-  return await prisma.post.findMany({
+  return prisma.post.findMany({
     where: { deletedAt: null },
     orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
     select: {
       id: true,
       content: true,
+      imageUrl: true,
       edited: true,
       createdAt: true,
       author: { select: { id: true, name: true } },
@@ -63,7 +79,7 @@ export const deletePost = async (id: number, userId: number) => {
     throw createError({ statusCode: 404, message: 'Post not found' })
   }
 
-  return await prisma.post.update({
+  return prisma.post.update({
     where: { id },
     data: { deletedAt: new Date() },
   })

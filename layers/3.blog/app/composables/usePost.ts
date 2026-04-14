@@ -12,7 +12,9 @@ export const usePost = () => {
   const post = ref<PostDto | null>(null)
   const comments = ref<CommentDto[]>([])
   const content = ref('')
+  const imageFile = ref<File | null>(null)
   const loading = ref(true)
+  const loadingCreate = ref(false)
   const loadingModal = ref(true)
   const headers = useAuthHeaders()
   const toast = useToast()
@@ -32,9 +34,16 @@ export const usePost = () => {
   }
 
   const createPost = async () => {
-    const newPost = await submitPost(content.value.trim(), headers.value)
+    loadingCreate.value = true
+    const newPost = await submitPost(
+      content.value.trim(),
+      headers.value,
+      imageFile.value ?? undefined,
+    )
     posts.value = [newPost, ...posts.value]
     content.value = ''
+    imageFile.value = null
+    loadingCreate.value = false
     toast.add({ title: 'Post criado com sucesso.', color: 'success' })
   }
 
@@ -64,7 +73,9 @@ export const usePost = () => {
     post,
     comments,
     content,
+    imageFile,
     loading,
+    loadingCreate,
     loadingModal,
     getPosts,
     getPostById,
