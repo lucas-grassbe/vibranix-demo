@@ -1,20 +1,34 @@
-export const useEducationStore = defineStore('education', () => {
-  const education = ref<EducationDto[]>([])
-  const loading = ref(false)
+export const useEducationStore = defineStore('educations', () => {
+  const educations = ref<EducationDto[]>([])
+
+  const setEducations = async (data: EducationDto[]) => {
+    educations.value = data
+  }
 
   const addEducation = (newEducation: EducationDto) => {
-    education.value = [...education.value, newEducation]
+    educations.value = [...educations.value, newEducation]
   }
 
   const updateEducation = (updatedEducation: EducationDto) => {
-    education.value = education.value.map((e) =>
+    educations.value = educations.value.map((e) =>
       e.id === updatedEducation.id ? updatedEducation : e,
     )
   }
 
   const removeEducation = (id: number) => {
-    education.value = education.value.filter((e) => e.id !== id)
+    educations.value = educations.value.filter((e) => e.id !== id)
   }
 
-  return { education, loading, addEducation, updateEducation, removeEducation }
+  const clearEducation = () => {
+    educations.value = []
+  }
+
+  return {
+    educations,
+    setEducations,
+    addEducation,
+    updateEducation,
+    removeEducation,
+    clearEducation,
+  }
 })

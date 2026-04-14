@@ -1,24 +1,32 @@
 import { fetchEducation } from '../service/educationService'
 
 export const useEducation = () => {
+  const loading = ref(false)
   const store = useEducationStore()
+  const { educations } = storeToRefs(store)
 
   const fetchEducations = async () => {
-    if (!store.loading && store.education.length) return
-    store.loading = true
-    store.education = await fetchEducation()
-    store.loading = false
+    if (!loading.value && educations.value.length) return
+    loading.value = true
+    const educationData = await fetchEducation()
+    await store.setEducations(educationData)
+    loading.value = false
   }
 
   const refreshEducation = async () => {
-    store.education = []
+    await store.setEducations([])
     await fetchEducations()
   }
 
+  const resetEducation = () => {
+    store.clearEducation()
+  }
+
   return {
-    education: computed(() => store.education),
-    loading: computed(() => store.loading),
+    educations,
+    loading,
     fetchEducations,
     refreshEducation,
+    resetEducation,
   }
 }

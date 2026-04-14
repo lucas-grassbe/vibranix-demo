@@ -1,20 +1,34 @@
-export const useExperienceStore = defineStore('experience', () => {
-  const experience = ref<ExperienceDto[]>([])
-  const loading = ref(false)
+export const useExperienceStore = defineStore('experiences', () => {
+  const experiences = ref<ExperienceDto[]>([])
+
+  const setExperiences = async (data: ExperienceDto[]) => {
+    experiences.value = data
+  }
 
   const addExperience = (newExperience: ExperienceDto) => {
-    experience.value = [newExperience, ...experience.value]
+    experiences.value = [newExperience, ...experiences.value]
   }
 
   const updateExperience = (updatedExperience: ExperienceDto) => {
-    experience.value = experience.value.map((e) =>
+    experiences.value = experiences.value.map((e) =>
       e.id === updatedExperience.id ? updatedExperience : e,
     )
   }
 
   const removeExperience = (id: number) => {
-    experience.value = experience.value.filter((e) => e.id !== id)
+    experiences.value = experiences.value.filter((e) => e.id !== id)
   }
 
-  return { experience, loading, addExperience, updateExperience, removeExperience }
+  const clearExperience = () => {
+    experiences.value = []
+  }
+
+  return {
+    experiences,
+    setExperiences,
+    addExperience,
+    updateExperience,
+    removeExperience,
+    clearExperience,
+  }
 })

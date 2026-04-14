@@ -1,7 +1,12 @@
 <script setup lang="ts">
 const { t, locale } = useI18n()
-const { education, loading, fetchEducations } = useEducation()
-await fetchEducations()
+const { educations, loading, fetchEducations } = useEducation()
+
+loading.value = true
+
+onMounted(() => {
+  fetchEducations()
+})
 </script>
 
 <template>
@@ -17,7 +22,7 @@ await fetchEducations()
 
     <template v-else>
       <UPageCard
-        v-for="item in education"
+        v-for="item in educations"
         :key="item.id"
         :title="`${item.degree} · ${item.institution}`"
         :description="`${new Date(item.startDate).toLocaleDateString(locale.value)} - ${item.endDate ? new Date(item.endDate).toLocaleDateString(locale.value) : t('common.current')}`"

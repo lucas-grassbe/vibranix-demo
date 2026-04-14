@@ -7,6 +7,14 @@ const { login } = useAppAuth()
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+const { resetEducation } = useEducation()
+const { resetExperience } = useExperience()
+
+onBeforeMount(() => {
+  resetEducation()
+  resetExperience()
+})
+
 const fields = computed<AuthFormField[]>(() => [
   {
     name: 'email',

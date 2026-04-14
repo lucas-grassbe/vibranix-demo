@@ -7,6 +7,14 @@ const { register } = useAppAuth()
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+const { clearEducation } = useEducation()
+const { clearExperience } = useExperience()
+
+onBeforeMount(() => {
+  clearEducation()
+  clearExperience()
+})
+
 const fields = computed<AuthFormField[]>(() => [
   {
     name: 'name',

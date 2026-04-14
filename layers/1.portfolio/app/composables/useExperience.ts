@@ -2,23 +2,31 @@ import { fetchExperience } from '../service/experienceService'
 
 export const useExperience = () => {
   const store = useExperienceStore()
+  const loading = ref(false)
+  const { experiences } = storeToRefs(store)
 
   const fetchExperiences = async () => {
-    if (!store.loading && store.experience.length) return
-    store.loading = true
-    store.experience = await fetchExperience()
-    store.loading = false
+    if (!loading.value && experiences.value.length) return
+    loading.value = true
+    const experienceData = await fetchExperience()
+    await store.setExperiences(experienceData)
+    loading.value = false
   }
 
   const refreshExperience = async () => {
-    store.experience = []
+    await store.setExperiences([])
     await fetchExperiences()
   }
 
+  const resetExperience = () => {
+    store.clearExperience()
+  }
+
   return {
-    experience: computed(() => store.experience),
-    loading: computed(() => store.loading),
+    experiences,
+    loading,
     fetchExperiences,
     refreshExperience,
+    resetExperience,
   }
 }
