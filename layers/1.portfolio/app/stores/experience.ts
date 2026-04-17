@@ -11,7 +11,7 @@ export const useExperienceStore = defineStore('experiences', () => {
 
   const updateExperience = (updatedExperience: ExperienceDto) => {
     experiences.value = experiences.value.map((e) =>
-      e.id === updatedExperience.id ? updatedExperience : e,
+      e.id === updatedExperience.id ? updatedExperience : e
     )
   }
 

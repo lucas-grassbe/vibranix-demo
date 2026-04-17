@@ -1,4 +1,5 @@
 import { fetchEducation } from '../service/educationService'
+import { useEducationStore } from '#layers/1.portfolio/app/stores/education'
 
 export const useEducation = () => {
   const loading = ref(false)

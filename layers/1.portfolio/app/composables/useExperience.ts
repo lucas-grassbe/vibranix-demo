@@ -1,4 +1,5 @@
 import { fetchExperience } from '../service/experienceService'
+import { useExperienceStore } from '#layers/1.portfolio/app/stores/experience'
 
 export const useExperience = () => {
   const store = useExperienceStore()

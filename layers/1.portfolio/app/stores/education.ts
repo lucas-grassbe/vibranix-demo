@@ -11,7 +11,7 @@ export const useEducationStore = defineStore('educations', () => {
 
   const updateEducation = (updatedEducation: EducationDto) => {
     educations.value = educations.value.map((e) =>
-      e.id === updatedEducation.id ? updatedEducation : e,
+      e.id === updatedEducation.id ? updatedEducation : e
     )
   }
 

@@ -22,11 +22,11 @@ watch(
     if (id) {
       getPostById(id)
     }
-  },
+  }
 )
 
 const confirmDeleteComment = () => {
-  deleteComment(props.postId!, commentToDeleteId!)
+  deleteComment(props.postId!, commentToDeleteId.value!)
   commentToDeleteId.value = null
 }
 </script>

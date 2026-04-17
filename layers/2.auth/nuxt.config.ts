@@ -43,8 +43,8 @@ export default defineNuxtConfig({
         },
       },
     },
-    session: {
-      enableRefreshPeriodically: 60000, // 1 minute
+    sessionRefresh: {
+      enablePeriodically: 60000, // 1 minute
     },
   },
   imports: {

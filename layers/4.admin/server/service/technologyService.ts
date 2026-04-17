@@ -22,7 +22,9 @@ export const updateTechnology = async (id: number, updateTechnologyDto: UpdateTe
     throw createError({ statusCode: 404, message: 'Technology not found' })
   }
 
-  await checkIfTechnologyNameIsUnique(updateTechnologyDto.name)
+  if (updateTechnologyDto.name) {
+    await checkIfTechnologyNameIsUnique(updateTechnologyDto.name)
+  }
 
   return await prisma.technology.update({
     where: { id },

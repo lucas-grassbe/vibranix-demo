@@ -1,3 +1,3 @@
 export type AuthHeaders = {
-  authorization?: string
+  Authorization?: string
 }

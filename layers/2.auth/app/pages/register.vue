@@ -7,12 +7,12 @@ const { register } = useAppAuth()
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-const { clearEducation } = useEducation()
-const { clearExperience } = useExperience()
+const { resetEducation } = useEducation()
+const { resetExperience } = useExperience()
 
 onBeforeMount(() => {
-  clearEducation()
-  clearExperience()
+  resetEducation()
+  resetExperience()
 })
 
 const fields = computed<AuthFormField[]>(() => [
@@ -44,7 +44,7 @@ const schema = computed(() =>
     name: z.string().min(2, t('auth.validation.nameMin')),
     email: z.email(t('auth.validation.emailInvalid')),
     password: z.string().min(6, t('auth.validation.passwordMin')),
-  }),
+  })
 )
 </script>
 

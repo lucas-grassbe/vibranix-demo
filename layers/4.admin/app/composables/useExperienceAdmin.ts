@@ -1,5 +1,6 @@
 import { createExperience, updateExperience, deleteExperience } from '../service/experienceService'
 import { fetchTechnologies, createTechnology } from '../service/technologyService'
+import { useExperienceStore } from '#layers/1.portfolio/app/stores/experience'
 
 export const useExperienceAdmin = () => {
   const store = useExperienceStore()
@@ -20,10 +21,10 @@ export const useExperienceAdmin = () => {
   })
 
   const techOptions = computed(() =>
-    technologies.value.map((t) => ({ label: t.name, value: t.id })),
+    technologies.value.map((t) => ({ label: t.name, value: t.id }))
   )
 
-  const { fetchExperiences } = useExperience()
+  const { fetchExperiences, loading } = useExperience()
   const getExperience = fetchExperiences
 
   const getTechnologies = async () => {
@@ -77,8 +78,8 @@ export const useExperienceAdmin = () => {
   }
 
   return {
-    experience: computed(() => store.experience),
-    loading: computed(() => store.loading && !store.experience.length),
+    experience: computed(() => store.experiences),
+    loading,
     technologies,
     techOptions,
     form,

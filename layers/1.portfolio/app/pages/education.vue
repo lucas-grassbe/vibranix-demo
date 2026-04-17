@@ -25,7 +25,7 @@ onMounted(() => {
         v-for="item in educations"
         :key="item.id"
         :title="`${item.degree} · ${item.institution}`"
-        :description="`${new Date(item.startDate).toLocaleDateString(locale.value)} - ${item.endDate ? new Date(item.endDate).toLocaleDateString(locale.value) : t('common.current')}`"
+        :description="`${new Date(item.startDate).toLocaleDateString(locale)} - ${item.endDate ? new Date(item.endDate).toLocaleDateString(locale) : t('common.current')}`"
         class="mb-4"
       />
     </template>

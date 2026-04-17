@@ -1,4 +1,5 @@
 import { createEducation, updateEducation, deleteEducation } from '../service/educationService'
+import { useEducationStore } from '#layers/1.portfolio/app/stores/education'
 
 export const useEducationAdmin = () => {
   const store = useEducationStore()
@@ -16,7 +17,7 @@ export const useEducationAdmin = () => {
     endDate: '',
   })
 
-  const { fetchEducations } = useEducation()
+  const { fetchEducations, loading } = useEducation()
   const getEducation = fetchEducations
 
   const openForm = (item?: EducationDto) => {
@@ -57,8 +58,8 @@ export const useEducationAdmin = () => {
   }
 
   return {
-    education: computed(() => store.education),
-    loading: computed(() => store.loading && !store.education.length),
+    education: computed(() => store.educations),
+    loading,
     form,
     showForm,
     editingId,

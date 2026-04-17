@@ -36,7 +36,7 @@ onMounted(() => {
         experiences.map((exp) => ({
           title: `${exp.title} · ${exp.company}`,
           description: exp.description,
-          date: `${new Date(exp.startDate).toLocaleDateString(locale.value, { month: 'short', year: 'numeric' })} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString(locale.value, { month: 'short', year: 'numeric' }) : t('common.current')}`,
+          date: `${new Date(exp.startDate).toLocaleDateString(locale, { month: 'short', year: 'numeric' })} - ${exp.endDate ? new Date(exp.endDate).toLocaleDateString(locale, { month: 'short', year: 'numeric' }) : t('common.current')}`,
           icon: 'i-lucide-code',
           technologies: exp.technologies,
         }))
